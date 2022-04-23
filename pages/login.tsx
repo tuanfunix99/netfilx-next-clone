@@ -12,7 +12,7 @@ interface Inputs {
   password: string;
 }
 
-const login = () => {
+const Login = () => {
   const auth = useAuth();
   const { push } = useRouter();
 
@@ -116,4 +116,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;
