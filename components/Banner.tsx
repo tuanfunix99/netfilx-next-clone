@@ -5,12 +5,16 @@ import { baseUrl } from "../constants/movie";
 import { FaPlay } from "react-icons/fa";
 import { HiInformationCircle } from "react-icons/hi";
 import splitContent from "../utils/splitContent";
+import { modalState, movieState } from '@states/modal';
+import { useRecoilState } from "recoil";
 
 interface PropsType {
   netflixOriginals: Movie[];
 }
 
 const Banner = ({ netflixOriginals }: PropsType) => {
+  const [showModal, setShowModal] = useRecoilState(modalState);
+  const [currentMovie, setCurrentMovie] = useRecoilState(movieState);
   const [movie, setMovie] = useState<Movie | null>(null);
   useEffect(() => {
     setMovie(
@@ -34,18 +38,18 @@ const Banner = ({ netflixOriginals }: PropsType) => {
         {splitContent(movie?.overview ?? "")}
       </p>
       <div className="flex space-x-3">
-        <button className="bannerButton bg-white text-black">
-          <FaPlay className="h-4 w-4 text-black md:h-7 md:w-7" />
+        <button className="text-black bg-white bannerButton">
+          <FaPlay className="w-4 h-4 text-black md:h-7 md:w-7" />
           Play
         </button>
         <button
           className="bannerButton bg-[gray]/70"
-          // onClick={() => {
-          //   setCurrentMovie(movie)
-          //   setShowModal(true)
-          // }}
+          onClick={() => {
+            setCurrentMovie(movie)
+            setShowModal(true)
+          }}
         >
-          <HiInformationCircle className="h-5 w-5 md:h-8 md:w-8" /> More Info
+          <HiInformationCircle className="w-5 h-5 md:h-8 md:w-8" /> More Info
         </button>
       </div>
     </div>
